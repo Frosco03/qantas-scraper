@@ -29,6 +29,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.1"
+    "electron-squirrel-startup": "^1.0.1",
+    "selenium-webdriver": "^4.22.0"
   }
 }
