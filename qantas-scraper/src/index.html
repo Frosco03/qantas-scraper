@@ -4,9 +4,90 @@
     <meta charset="UTF-8" />
     <title>Hello World!</title>
     <link rel="stylesheet" href="index.css" />
+    <!-- <link rel="stylesheet" href="fontawesome.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <section class="header">
+
+      <div class="field-item">
+        <label>Fly from</label>
+        <select name="flyFrom"><option>Hello</option></select>
+      </div>
+      <div class="field-item">
+        <label>Fly to</label>
+        <select name="flyTo"><option>Hello</option></select>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="field-item">
+        <label>Find flights from</label>
+        <input type="date" name="dateFrom" />
+      </div>
+      <div class="field-item">
+        <label>until</label>
+        <input type="date" name="dateTo" />
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="field-item">
+        <label>Adults</label>
+        <input value="1" class="small" type="number" min="0" name="guestsAdults" />
+        <span class="tip">12+ years</span>
+      </div>
+
+      <div class="field-item">
+        <label>Children</label>
+        <input value="0" class="small" type="number" min="0" name="guestsChildren" />
+        <span class="tip">2-11 years</span>
+      </div>
+
+      <div class="field-item">
+        <label>Infants</label>
+        <input value="0" class="small" type="number" min="0" name="guestsInfants" />
+        <span class="tip">&#60;2 years</span>
+      </div>
+
+      <div class="separator"></div>
+
+      <div class="field-item" style="text-align: right; flex: 1; align-items: end;">
+        <button class="primary" style="width: fit-content" id="scrape-btn">SCRAPE FLIGHTS</button>
+        <span class="tip">From Qantas</span>
+      </div>
+    </section>
+    <section class="list">
+      <header>
+        <div class="left">
+          <h3>Flights with rewards</h3>
+        <h1>Manila to Hong Kong</h1>
+        </div>
+        <div class="right">
+          <button id="export-btn">EXPORT CSV</button>
+        </div>
+      </header>
+      
+      <table id="flights-table">
+        <thead>
+          <tr>
+            <th>Departure Date</th>
+            <th>Routes</th>
+            <th>Economy Reward</th>
+            <th>Premium Economy Reward</th>
+            <th>Business Reward</th>
+            <th>First Reward</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <br>
+    
+    
+    
+    
   </body>
+  <script src="./script.js"></script>
 </html>
