@@ -1,7 +1,220 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
-  margin: auto;
+  background-image: url(background.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* margin: auto;
   max-width: 38rem;
-  padding: 2rem;
+  padding: 2rem; */
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+section {
+  background-color: #FAFAF2;
+  width: 80%;
+  border-radius: 5px;
+  padding: 20px 30px;
+}
+
+section.header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+section.list {
+  max-height: 60%;
+  overflow-y: auto;
+}
+
+section > header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  margin: 0;
+  font-size: 40px;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+.separator {
+  height: 100%;
+  margin: 0 5px;
+  border-left: 2px solid #C5C5C5;
+}
+
+.field-item {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;  
+}
+
+.field-item label {
+  margin-bottom: 3px;
+}
+
+select {
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 4px;
+  border: #BBBBBB solid 1px;
+  font-size: 15px;
+  box-sizing: border-box;
+  width: 150px;
+}
+
+input {
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 4px;
+  border: #BBBBBB solid 1px;
+  font-size: 15px;
+}
+
+input.small {
+  height: 32px;
+  width: 40px;
+  padding: 0 10px;
+  border-radius: 4px;
+  border: #BBBBBB solid 1px;
+  font-size: 14px;
+}
+
+.tip {
+  font-size: 12px;
+  color: #666666;
+}
+
+button {
+  height: 40px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: none;
+  font-size: 13px;
+  font-weight: bold;
+  box-sizing: border-box;
+  background-color: #E7E8EA;
+  color: #303030;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button.primary {
+  background-color: #2A3B83;
+  color: #fff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table td, table th {
+  text-align: left;
+  border-bottom: 1px solid #CACACA;
+  padding: 3px 10px;
+}
+
+table th {
+  color: #585858;
+}
+
+.flight-routes {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.flight-route-item {
+  background-color: #ECECEC;
+  border-radius: 5px;
+  padding: 4px 25px;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  position: relative;
+}
+
+.flight-route-item:not(:nth-child(1)):before {
+  content: '.';
+  color: transparent;
+  user-select: none;
+  position: absolute;
+  height: 55px;
+  /* outline: 1px solid red; */
+  border-left: 2px dashed #A0A0A0;
+  left: 12px;
+  top: -27px;
+}
+
+.flight-route-no {
+  width: 80px;
+}
+
+.flight-route-stop {
+  display: flex;
+  flex-direction: column;
+  width: 90px;
+  padding-left: 20px;
+}
+
+.flight-route-stop-time {
+  font-size: 17px;
+}
+
+.flight-route-stop-location {
+  font-size: 13px;
+}
+
+.flight-route-duration {
+  font-size: 13px;
+  border-bottom: #8D8D8D 2px solid;
+  padding-bottom: 2px;
+  width: 70px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.flight-rewards {
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-rewards-1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.flight-rewards-2 {
+  font-size: 14px;
 }
