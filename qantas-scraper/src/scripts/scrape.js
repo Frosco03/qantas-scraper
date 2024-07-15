@@ -106,7 +106,6 @@ const scrapeSite = async () => {
         await driver.executeScript(`document.evaluate('/html/body/div[1]/div/div/div[3]/main/div/div/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/form/input[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('value', '202408140000');`);
 
         //submit form
-        //TODO I have a problem with access denied when submitting the form. Try looking into making selenium undetected
         let submitBtn = await driver.findElement(By.xpath('/html/body/div[1]/div/div/div[3]/main/div/div/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/form/div[2]/div/div/button'));
         await driver.executeScript("arguments[0].click()", submitBtn);
 
