@@ -69,10 +69,12 @@ const fillDummyDetails = async (driver) => {
 
 const scrapeSite = async () => {
     const options = new Chrome.Options();
-    const user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+    const user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 Edg/126.0.0.0';
     options.addArguments('--window-size=1920,1080');
     //options.addArguments(`--headless=new`);
     options.addArguments(`--user-agent=${user_agent}`);
+    options.addArguments('--disable-blink-features=AutomationControlled');
+    options.excludeSwitches('enable-automation');
 
     let driver = await new Builder().forBrowser(Browser.CHROME)
     .setChromeOptions(options) //Added user agent manually since qantas detects headless browsers
@@ -80,6 +82,8 @@ const scrapeSite = async () => {
     
     try {
         await driver.navigate().to('https://www.qantas.com/');
+
+        await sleep(180000).then(() => { console.log('Done!!'); });
 
         // Wait for the document ready state to be 'complete'
         await driver.wait(async function () {
