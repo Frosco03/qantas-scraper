@@ -1,0 +1,146 @@
+[
+    {
+        "routes": [],
+        "rewards": {}
+    },
+    {
+        "routes": [
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CI706",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            },
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CX421",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            }
+        ],
+        "rewards": {
+            "economyReward": "40,000",
+            "economyPrice": "+ 3,565",
+            "premEconomyReward": 0,
+            "premEconomyPrice": 0,
+            "businessReward": "50,000",
+            "businessPrice": "+ 3,565",
+            "firstReward": 0,
+            "firstPrice": 0
+        }
+    },
+    {
+        "routes": [
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CI706",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            },
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CX473",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            }
+        ],
+        "rewards": {
+            "economyReward": "40,000",
+            "economyPrice": "+ 3,565",
+            "premEconomyReward": 0,
+            "premEconomyPrice": 0,
+            "businessReward": 0,
+            "businessPrice": 0,
+            "firstReward": 0,
+            "firstPrice": 0
+        }
+    },
+    {
+        "routes": [
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CI706",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            },
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CX565",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            }
+        ],
+        "rewards": {
+            "economyReward": "40,000",
+            "economyPrice": "+ 3,565",
+            "premEconomyReward": 0,
+            "premEconomyPrice": 0,
+            "businessReward": "50,000",
+            "businessPrice": "+ 3,565",
+            "firstReward": 0,
+            "firstPrice": 0
+        }
+    },
+    {
+        "routes": [
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CI706",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            },
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CX451",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            }
+        ],
+        "rewards": {
+            "economyReward": "40,000",
+            "economyPrice": "+ 3,565",
+            "premEconomyReward": 0,
+            "premEconomyPrice": 0,
+            "businessReward": "50,000",
+            "businessPrice": "+ 3,565",
+            "firstReward": 0,
+            "firstPrice": 0
+        }
+    },
+    {
+        "routes": [
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CI706",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            },
+            {
+                "departureTime": "12:05",
+                "arrivalTime": "14:55",
+                "flightNo": "CX531",
+                "origin": "Cebu",
+                "destination": "Taipei (Taoyuan International)"
+            }
+        ],
+        "rewards": {
+            "economyReward": "40,000",
+            "economyPrice": "+ 3,565",
+            "premEconomyReward": 0,
+            "premEconomyPrice": 0,
+            "businessReward": 0,
+            "businessPrice": 0,
+            "firstReward": 0,
+            "firstPrice": 0
+        }
+    }
+]

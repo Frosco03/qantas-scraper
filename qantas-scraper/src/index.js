@@ -9,8 +9,7 @@ if (require('electron-squirrel-startup')) {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    show: false,
     webPreferences: {
       //TODO: this is just a temporary workaround that gives security risks. Try searching how to integrate electron w/ node modules
       nodeIntegration: true,
@@ -19,11 +18,15 @@ const createWindow = () => {
     },
   });
 
+  mainWindow.maximize();
+  mainWindow.show();
+  mainWindow.removeMenu();
+
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

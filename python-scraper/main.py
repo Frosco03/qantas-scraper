@@ -1,11 +1,10 @@
-
+import sys
 import json
 import undetected_chromedriver as uc
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-
 import time
 
 global driver
@@ -64,10 +63,6 @@ def fillDummyFields():
     rewardsBtn.click()
 
 def getFlightDetails(parent):
-    #departure-arrival-time => classname
-    #e2e-flight-number => classname
-    #.details-label.duration => css selector
-
     flights = []
 
     segmentContainer = parent.find_elements('class name', 'segment')
@@ -90,44 +85,65 @@ def getFlightDetails(parent):
     return flights
 
 def getRewardValues(parent):
+
+    cells = parent.find_elements('css selector', 'upsell-fare-cell')
+
     flightCardPaths = [
-        ('economyReward', '//*[starts-with(@class, "fareFamiliesContainer")]/upsell-itinerary-fares/upsell-fare-cell[1]/div/label/div/span[2]/div/span/span/span'),
-        ('economyPrice', '//*[starts-with(@id, "fareFamiliesContainer")]/upsell-itinerary-fares/upsell-fare-cell[1]/div/label/div/span[2]/div/span/span/div/div'),
-        ('premEconomyReward', '//*[starts-with(@id, "fareFamiliesContainer")]/upsell-itinerary-fares/upsell-fare-cell[2]/div/label/div/span[2]/div/span/span/span'),
-        ('premEconomyPrice', '//*[starts-with(@id, "fareFamiliesContainer")]/upsell-itinerary-fares/upsell-fare-cell[2]/div/label/div/span[2]/div/span/span/div/div'),
-        ('businessReward', '//*[starts-with(@id, "fareFamiliesContainer")]/upsell-itinerary-fares/upsell-fare-cell[3]/div/label/div/span[2]/div/span/span/span'),
-        ('businessPrice', '//*[starts-with(@id, "fareFamiliesContainer")]/upsell-itinerary-fares/upsell-fare-cell[3]/div/label/div/span[2]/div/span/span/div/div'),
-        ('firstReward', '//*[starts-with(@id, "fareFamiliesContainer")]/upsell-itinerary-fares/upsell-fare-cell[4]/div/label/div/span[2]/div/span/span/span'),
-        ('firstPrice', '//*[starts-with(@id, "fareFamiliesContainer")]/upsell-itinerary-fares/upsell-fare-cell[4]/div/label/div/span[2]/div/span/span/div/div'),
+        ('economyReward', 'span.points'),
+        ('economyPrice', 'div.cash'),
+        ('premEconomyReward', 'span.points'),
+        ('premEconomyPrice', 'div.cash'),
+        ('businessReward', 'span.points'),
+        ('businessPrice', 'div.cash'),
+        ('firstReward', 'span.points'),
+        ('firstPrice', 'div.cash'),
     ]
 
     flightInfo = {}
 
-    flightInfo['flights'] = getFlightDetails(parent)
-
-    for name, path in flightCardPaths:
+    for i, cell in enumerate(cells):
         try:
-            flightInfo[name] = parent.find_element('xpath', path).text
-        except:
-            flightInfo[name] = 0
+            # Every cell should correspond to two elements in flightCardPaths
+            reward_name, reward_path = flightCardPaths[2 * i]
+            price_name, price_path = flightCardPaths[2 * i + 1]
+            
+            # Get the text for both elements and store in flightInfo
+            flightInfo[reward_name] = [cell.find_element('css selector', reward_path).text, cell.find_element('css selector', price_path).text]
+            #flightInfo[price_name] = cell.find_element('css selector', price_path).text
+        except Exception as e:
+            # If there's an error, set the value to 0
+            flightInfo[reward_name] = [0, 0]
+            #flightInfo[price_name] = 0
 
     return flightInfo
     
 
+#TODO: Australian domestic flights have different layout. Add one for domestic aus flights
 def scrapeSite():
     wait = WebDriverWait(driver, timeout=15)
     try:
-        wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, '.card.itinerary')))
+        wait.until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, '.card.itinerary')))
         resultList = driver.find_elements('css selector', '.card.itinerary')
     except:
         resultList = False
-
+    
     if resultList:
         for result in resultList:
-            
-            data.append(getRewardValues(result))
+            currentData = {}
+            # Scroll the element into view using JavaScript
+            driver.execute_script("arguments[0].scrollIntoView(true);", result)
 
-    print(json.dumps(data))
+            #TODO data.append() the date for that day
+            time.sleep(1)
+            currentData['routes'] = getFlightDetails(result)
+            time.sleep(1)
+            currentData['rewards'] = getRewardValues(result)
+            data.append(currentData)
+    
+    print(data)
+
+    with open('data.json', 'w') as f:
+        json.dump(data, f, indent=4)
             
     #TODO: Only go next date kung may natira pang days
     #goNextDate()
@@ -135,7 +151,7 @@ def scrapeSite():
 def goNextDate():
     wait = WebDriverWait(driver, timeout=15)
     calendar = findElementIfAvail(driver, 'css selector', '.cal-offset-lg-1.cal-offset-md-2.cal-offset-xs-3.calendar-rewards')
-    wait.until(EC.presence_of_all_elements_located((By.TAG_NAME, 'button')))
+    wait.until(EC.visibility_of_all_elements_located((By.TAG_NAME, 'button')))
     calendarBtns = calendar.find_elements('tag name', 'button')
 
     index = 0
@@ -149,11 +165,12 @@ def goNextDate():
 
     scrapeSite()
 
+# START OF SCRIPT
 
-# chrome_options = Options()
-# chrome_options.add_argument("--headless=new")
-# chrome_options.add_argument('--window-size=1920,1080')
 data = []
+
+jsonString = sys.argv[1]
+params = json.loads(jsonString)
 
 driver = uc.Chrome()
 driver.get('https://www.qantas.com/')
@@ -161,11 +178,14 @@ driver.get('https://www.qantas.com/')
 fillDummyFields()
 
 # Set destination airport
-driver.execute_script("document.evaluate('/html/body/div[1]/div/div/div[3]/main/div/div/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/form/input[1]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('value', 'CEB');")
+driver.execute_script("document.evaluate('/html/body/div[1]/div/div/div[3]/main/div/div/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/form/input[1]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('value', '{}');".format(params['flyFrom']))
+
 # Set arrival airport
-driver.execute_script("document.evaluate('/html/body/div[1]/div/div/div[3]/main/div/div/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/form/input[2]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('value', 'SIN');")
+driver.execute_script("document.evaluate('/html/body/div[1]/div/div/div[3]/main/div/div/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/form/input[2]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('value', '{}');".format(params['flyTo']))
+
 # Set date
-driver.execute_script("document.evaluate('/html/body/div[1]/div/div/div[3]/main/div/div/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/form/input[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('value', '202407230000');")
+driver.execute_script("document.evaluate('/html/body/div[1]/div/div/div[3]/main/div/div/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/form/input[3]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.setAttribute('value', '{}0000');".format(params['dateFrom'].replace("-", ""))) #Removes dashes from the date value
+
 
 submitBtn = findElementIfAvail(driver, 'xpath', '/html/body/div[1]/div/div/div[3]/main/div/div/div/div[2]/div[2]/div/div/div[2]/div[1]/div/div/div/div[2]/div/div/div[2]/div/div/div[2]/div/div/div/div[1]/form/div[2]/div/div/button')
 submitBtn.click()
