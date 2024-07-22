@@ -13,6 +13,13 @@ The front-end of the program is made in Electron, while javascript code runs in 
 4. Python saves the scraped information on a JSON file
 5. Javascript takes the info from the JSON file and outputs it in the app
 
+## Task List
+This section shows the current progress of the project
+- [x] Scrape Qantas website
+- [x] Allow scraping for one date
+- [ ] Allow scraping for multiple dates
+- [ ] Save data to a CSV file
+
 ## Directory
 **python-scraper** - contains source code of the python script
 
